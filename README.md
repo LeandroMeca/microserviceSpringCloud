@@ -10,6 +10,8 @@
 <p>
   As duas APIs de serviço foram desenvolvidas para consumir e persistir dados em um banco de dados, completando o ciclo de funcionamento da arquitetura de microserviços.
 </p>
+<h2>Abaixo está uml de relacionamento das entidades</h2>
+<img width="400" height="400" alt="uml" src="https://github.com/user-attachments/assets/33cf6110-5e11-4243-92b6-fb26a09668fa" />
 
 <h2>Tecnologias Utilizadas</h2>
 <ul>
