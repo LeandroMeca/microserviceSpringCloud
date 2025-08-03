@@ -1,0 +1,28 @@
+/* Estilo para centralizar o pop-up de sucesso dentro do seu contêiner */
+.sucesso-venda-popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.sucesso-venda-popup mat-card-content {
+  width: 100%;
+}
+
+.sucesso-venda-popup .valor-total {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #3f51b5; 
+}
+
+.full-width {
+  width: 100%;
+}
+
+.quantidade-input {
+  width: 60px;
+}
