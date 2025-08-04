@@ -32,3 +32,15 @@
 <p>
   Embora seja um projeto de microserviço de pequena escala, ele serve como uma excelente base para entender o funcionamento de conceitos essenciais como roteamento de requisições, descoberta de serviços e monitoramento de APIs. A escolha do VS Code como ferramenta principal foi motivada pela sua facilidade de uso e desempenho, que se mostrou superior em relação a outras IDEs para este tipo de projeto.
 </p>
+
+ <h1>Projeto Front-end: Sistema de Caixa</h1>
+
+  <p>Este projeto foi desenvolvido para simular um sistema de caixa. Ele permite o cadastro de clientes e produtos, e a realização de vendas com o cálculo total no checkout.</p>
+
+  <h2>Construção e Funcionalidades</h2>
+
+  <p>O frontend do sistema possui três rotas principais: uma para o cadastro de clientes, outra para o cadastro de produtos, e uma terceira rota de caixa, que simula a saída de produtos, associando-os a um cliente e gerando o valor total da compra.</p>
+
+  <h2>Tecnologias e Ferramentas</h2>
+
+  <p>As tecnologias utilizadas no projeto foram <strong>Angular 19</strong>, com <strong>Angular Material</strong>, <strong>CSS</strong> e <strong>HTML</strong>. Para o desenvolvimento, foram usadas as ferramentas <strong>VS Code</strong> e as <strong>DevTools do navegador</strong>.</p>
