@@ -11,7 +11,7 @@
   As duas APIs de serviço foram desenvolvidas para consumir e persistir dados em um banco de dados, completando o ciclo de funcionamento da arquitetura de microserviços.
 </p>
 <h2>Abaixo está uml de relacionamento das entidades</h2>
-<img width="400" height="400" alt="uml" src="https://github.com/user-attachments/assets/33cf6110-5e11-4243-92b6-fb26a09668fa" />
+<img width="1280" height="244.66" alt="Untitled diagram _ Mermaid Chart-2025-08-10-231305" src="https://github.com/user-attachments/assets/eb0a2f98-efbb-4710-8f78-bf041f5942ec" />
 
 <h2>Tecnologias Utilizadas</h2>
 <ul>
@@ -44,3 +44,9 @@
   <h2>Tecnologias e Ferramentas</h2>
 
   <p>As tecnologias utilizadas no projeto foram <strong>Angular 19</strong>, com <strong>Angular Material</strong>, <strong>CSS</strong> e <strong>HTML</strong>. Para o desenvolvimento, foram usadas as ferramentas <strong>VS Code</strong> e as <strong>DevTools do navegador</strong>.</p>
+
+  <h1>Print</h1>
+<img width="1366" height="768" alt="11" src="https://github.com/user-attachments/assets/8100cee4-84d8-4234-99a1-055c5fde52f1" />
+<img width="1366" height="768" alt="12" src="https://github.com/user-attachments/assets/9fffaaa7-b600-40ed-ba1b-4da4506daaf2" />
+<img width="1366" height="768" alt="13" src="https://github.com/user-attachments/assets/f3055ddb-4863-4094-b45c-f754262b1c1a" />
+
