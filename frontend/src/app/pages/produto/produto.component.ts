@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { ProdutoService, Produto } from '../../services/produto.service';
 
@@ -20,22 +20,22 @@ import { ProdutoService, Produto } from '../../services/produto.service';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './produto.component.html',
-  styleUrls: ['./produto.component.css']
+  styleUrls: ['./produto.component.css'],
 })
 export class ProdutoComponent implements OnInit {
-
   // As colunas que serão exibidas na tabela
   displayedColumns: string[] = ['nome', 'descricao', 'preco', 'acoes'];
-  produtos: Produto[] = [];
+  // Usar MatTableDataSource para estabilidade e atualização segura da tabela
+  dataSource = new MatTableDataSource<Produto>();
   // Objeto para o formulário
   novoProduto: Produto = { nome: '', descricao: '', preco: 0 };
   // Objeto para controle do modo de edição
   produtoEmEdicao: Produto | null = null;
 
-  constructor(private produtoService: ProdutoService) { }
+  constructor(private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
     // Ao inicializar, carrega a lista de produtos
@@ -45,27 +45,34 @@ export class ProdutoComponent implements OnInit {
   loadProdutos(): void {
     this.produtoService.getProdutos().subscribe({
       next: (data) => {
-        this.produtos = data;
+        // Atualiza o dataSource sem substituir a referência para evitar problemas
+        this.dataSource.data = data || [];
       },
       error: (error) => {
         console.error('Falha ao carregar produtos:', error);
-      }
+      },
     });
   }
 
   salvarProduto(): void {
-    if (this.novoProduto.nome && this.novoProduto.descricao && this.novoProduto.preco > 0) {
+    if (
+      this.novoProduto.nome &&
+      this.novoProduto.descricao &&
+      this.novoProduto.preco > 0
+    ) {
       if (this.produtoEmEdicao) {
-        this.produtoService.updateProduto(this.novoProduto as Produto).subscribe({
-          next: (produtoAtualizado) => {
-            console.log('Produto atualizado com sucesso:', produtoAtualizado);
-            this.loadProdutos();
-            this.limparFormulario();
-          },
-          error: (error) => {
-            console.error('Falha ao atualizar produto:', error);
-          }
-        });
+        this.produtoService
+          .updateProduto(this.novoProduto as Produto)
+          .subscribe({
+            next: (produtoAtualizado) => {
+              console.log('Produto atualizado com sucesso:', produtoAtualizado);
+              this.loadProdutos();
+              this.limparFormulario();
+            },
+            error: (error) => {
+              console.error('Falha ao atualizar produto:', error);
+            },
+          });
       } else {
         this.produtoService.addProduto(this.novoProduto).subscribe({
           next: (produtoSalvo) => {
@@ -75,7 +82,7 @@ export class ProdutoComponent implements OnInit {
           },
           error: (error) => {
             console.error('Falha ao salvar produto:', error);
-          }
+          },
         });
       }
     }
@@ -86,11 +93,13 @@ export class ProdutoComponent implements OnInit {
       this.produtoService.deleteProduto(id).subscribe({
         next: () => {
           console.log(`Produto com ID ${id} deletado com sucesso.`);
-          this.produtos = this.produtos.filter(produto => produto.id !== id);
+          this.dataSource.data = this.dataSource.data.filter(
+            (produto) => produto.id !== id,
+          );
         },
         error: (error) => {
           console.error('Falha ao deletar produto:', error);
-        }
+        },
       });
     }
   }

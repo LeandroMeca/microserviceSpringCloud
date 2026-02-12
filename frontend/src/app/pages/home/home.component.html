@@ -1,27 +1,54 @@
 <div class="container">
-
   <!-- Formulário de Cadastro/Edição de Cliente -->
   <mat-card class="form-card">
     <mat-card-header>
-      <mat-card-title>{{ clienteEmEdicao ? 'Editar Cliente' : 'Cadastro de Cliente' }}</mat-card-title>
+      <mat-card-title>{{
+        clienteEmEdicao ? "Editar Cliente" : "Cadastro de Cliente"
+      }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <!-- O evento (ngSubmit) é o que chama a função salvarCliente() -->
       <form #clienteForm="ngForm" (ngSubmit)="salvarCliente()">
         <mat-form-field class="full-width">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="Ex: João Silva" [(ngModel)]="novoCliente.nome" name="nome" required>
+          <input
+            matInput
+            placeholder="Ex: João Silva"
+            [(ngModel)]="novoCliente.nome"
+            name="nome"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Telefone</mat-label>
+          <input
+            matInput
+            placeholder="Ex: (11) 91234-5678"
+            [(ngModel)]="novoCliente.celular"
+            name="celular"
+            required
+          />
         </mat-form-field>
 
         <!-- Botões de ação do formulário, agora DENTRO da tag <form> -->
         <mat-card-actions align="end">
           <!-- O botão de submit dispara o (ngSubmit) do formulário pai -->
-          <button mat-raised-button color="primary" type="submit" [disabled]="!clienteForm.valid">
-            {{ clienteEmEdicao ? 'Atualizar' : 'Salvar' }}
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!clienteForm.valid"
+          >
+            {{ clienteEmEdicao ? "Atualizar" : "Salvar" }}
           </button>
 
           <!-- O botão de cancelar não é do tipo submit -->
-          <button mat-button *ngIf="clienteEmEdicao" (click)="limparFormulario()">
+          <button
+            mat-button
+            *ngIf="clienteEmEdicao"
+            (click)="limparFormulario()"
+          >
             Cancelar
           </button>
         </mat-card-actions>
@@ -35,31 +62,38 @@
       <mat-card-title>Lista de Clientes</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <table mat-table [dataSource]="clientes" class="full-width">
-
+      <table mat-table [dataSource]="dataSource" class="full-width">
         <!-- Coluna Nome -->
         <ng-container matColumnDef="nome">
-          <th mat-header-cell *matHeaderCellDef> Nome </th>
-          <td mat-cell *matCellDef="let cliente"> {{cliente.nome}} </td>
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let cliente">{{ cliente.nome }}</td>
         </ng-container>
 
         <!-- Coluna Ações (botões de editar e deletar) -->
         <ng-container matColumnDef="acoes">
-          <th mat-header-cell *matHeaderCellDef> Ações </th>
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
           <td mat-cell *matCellDef="let cliente">
-            <button mat-icon-button color="accent" (click)="abrirEdicao(cliente)">
+            <button
+              mat-icon-button
+              color="accent"
+              (click)="abrirEdicao(cliente)"
+            >
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deletarCliente(cliente.id)">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deletarCliente(cliente.id)"
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <!-- debug removido -->
     </mat-card-content>
   </mat-card>
-
 </div>

@@ -57,3 +57,11 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Observações sobre o backend (API)
+
+A aplicação front-end consulta a API em `http://localhost:8080/caixa/api/...` por padrão. Se a API backend não estiver rodando, alguns dados (por exemplo, lista de clientes) não irão carregar e você verá erros do tipo `Http failure response` no console do terminal ou no console do navegador.
+
+Para evitar os erros durante o desenvolvimento, inicie o(s) serviço(s) backend correspondente(s) (normalmente o microservice Spring boot presente no repositório principal) ou ajuste as URLs de API nas configurações do front.
+
+Para parar o servidor de desenvolvimento do Angular, use Ctrl+C no terminal onde `ng serve` está rodando.

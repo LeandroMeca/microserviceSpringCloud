@@ -1,4 +1,4 @@
-package br.com.leandrocruz.caixa.en;
+package br.com.leandrocruz.caixa.entity;
 
 
 import jakarta.persistence.*;
@@ -23,6 +23,7 @@ public class Cliente {
     private Integer id;
 
     private String nome;
+    private String celular;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference // ANOTAÇÃO ADICIONADA AQUI

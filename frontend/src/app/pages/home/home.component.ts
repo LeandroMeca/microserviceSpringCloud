@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CaixaService, Cliente } from '../../services/caixa.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
@@ -20,21 +21,25 @@ import { CaixaService, Cliente } from '../../services/caixa.service';
     MatButtonModule,
     MatTableModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
   displayedColumns: string[] = ['nome', 'acoes'];
   clientes: Cliente[] = [];
-  novoCliente: Cliente = { nome: '' };
+  dataSource = new MatTableDataSource<Cliente>();
+  novoCliente: Cliente = { nome: '', celular: '' };
   clienteEmEdicao: Cliente | null = null;
 
-  constructor(private caixaService: CaixaService) { }
+  constructor(
+    private caixaService: CaixaService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
+    // Carrega os clientes do backend
     this.loadClientes();
   }
 
@@ -42,16 +47,25 @@ export class HomeComponent implements OnInit {
     this.caixaService.getClientes().subscribe({
       next: (data) => {
         this.clientes = data;
+        // Atualiza o dataSource existente para evitar substituir a referência
+        this.dataSource.data = data;
+        // recebido com sucesso (logs de debug removidos)
+        // Garantir que a view será atualizada
+        // agendamos detectChanges de forma assíncrona para evitar flicker durante bootstrap
+        setTimeout(() => this.cdr.detectChanges(), 0);
       },
       error: (error) => {
         console.error('Falha ao carregar clientes:', error);
-      }
+      },
     });
   }
 
   salvarCliente(): void {
     // Adicionei este log para saber se a função é chamada
-    console.log('salvarCliente() foi chamado. Verificando o cliente:', this.novoCliente);
+    console.log(
+      'salvarCliente() foi chamado. Verificando o cliente:',
+      this.novoCliente,
+    );
 
     if (this.novoCliente.nome) {
       if (this.clienteEmEdicao) {
@@ -63,7 +77,7 @@ export class HomeComponent implements OnInit {
           },
           error: (error) => {
             console.error('Falha ao atualizar cliente:', error);
-          }
+          },
         });
       } else {
         this.caixaService.addCliente(this.novoCliente).subscribe({
@@ -74,11 +88,13 @@ export class HomeComponent implements OnInit {
           },
           error: (error) => {
             console.error('Falha ao salvar cliente:', error);
-          }
+          },
         });
       }
     } else {
-      console.warn('O campo "nome" está vazio. Não foi possível salvar o cliente.');
+      console.warn(
+        'O campo "nome" está vazio. Não foi possível salvar o cliente.',
+      );
     }
   }
 
@@ -87,11 +103,11 @@ export class HomeComponent implements OnInit {
       this.caixaService.deleteCliente(id).subscribe({
         next: () => {
           console.log(`Cliente com ID ${id} deletado com sucesso.`);
-          this.clientes = this.clientes.filter(cliente => cliente.id !== id);
+          this.clientes = this.clientes.filter((cliente) => cliente.id !== id);
         },
         error: (error) => {
           console.error('Falha ao deletar cliente:', error);
-        }
+        },
       });
     }
   }
@@ -102,7 +118,7 @@ export class HomeComponent implements OnInit {
   }
 
   limparFormulario(): void {
-    this.novoCliente = { nome: '' };
+    this.novoCliente = { nome: '', celular: '' };
     this.clienteEmEdicao = null;
   }
 }

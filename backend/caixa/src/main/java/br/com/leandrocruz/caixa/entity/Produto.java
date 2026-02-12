@@ -1,4 +1,4 @@
-package br.com.leandrocruz.caixa.en;
+package br.com.leandrocruz.caixa.entity;
 
 
 
