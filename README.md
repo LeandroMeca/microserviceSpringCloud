@@ -1,4 +1,4 @@
-<h1>Microserviço com Spring Cloud</h1>
+<h1>spring-cloud-pdv</h1>
 
 <h2>Visão Geral do Projeto</h2>
 <p>
